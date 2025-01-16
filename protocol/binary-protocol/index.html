@@ -1,0 +1,2348 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://rtype_doc.com/protocol/binary-protocol/">
+      
+      
+        <link rel="prev" href="../protocol/">
+      
+      
+        <link rel="next" href="../../dev/ECS/Overview/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>Binary Protocol - R-Type Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#r-type-multiplayer-protocol-specification" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="R-Type Documentation" class="md-header__button md-logo" aria-label="R-Type Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            R-Type Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Binary Protocol
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="R-Type Documentation" class="md-nav__button md-logo" aria-label="R-Type Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    R-Type Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ECS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ECS Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RType/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RType Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Protocol
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Protocol
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protocol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Binary Protocol
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Binary Protocol
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#version-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version: 2.0
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-general-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. General Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-message-types-and-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Message Types and Fields
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Message Types and Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-connection-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. Connection Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1. Connection Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-server-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client → Server: connect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-client-connected" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server → Client: connected
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-gameplay-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Gameplay Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2. Gameplay Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-server-move" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client → Server: move
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-all-clients-update_position" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server → All Clients: update_position
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-shooting-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. Shooting Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3. Shooting Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-server-shoot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client → Server: shoot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-chat-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4. Chat Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4. Chat Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-server-chat_message" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client → Server: chat_message
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-power-up-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5. Power-Up Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5. Power-Up Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-all-clients-power_up" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server → All Clients: power_up
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-error-handling-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6. Error Handling Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6. Error Handling Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-client-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server → Client: error
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-game-state-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Game State Synchronization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-error-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Error Codes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-example-communication-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Example Communication Sequence
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-packet-structure-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Packet Structure Overview
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Developer Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Developer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ECS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            ECS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/ECS/Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/ECS/APIReference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/ECS/CoreComponents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core Components
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/ECS/EventManagement/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Event Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/ECS/Examples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/ECS/SchemasAndDiagrams/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schemas and Diagrams
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/ECS/SystemManager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/ECS/Systems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Systems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Network
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Network
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/Network/Client/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Client
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/Network/Enemy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Enemy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/Network/Entity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Entity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/Network/Exception/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Exception
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/Network/IServer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IServer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/Network/Network/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Network Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/Network/Player/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Player
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/Network/Projectile/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Projectile
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/Network/Server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    RType
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            RType
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/RType/Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/RType/collision_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Collision System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/RType/enemy_shooting_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Enemy Shooting System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/RType/enemy_spawn_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Enemy Spawn System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/RType/game_common/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Game Common
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/RType/game_network/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Game Network
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/RType/game_setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Game Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/RType/health_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Health System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/RType/input_system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Input System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/RType/projectile_types/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Projectile Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    User Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            User Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user/Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user/Installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user/Usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user/Troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Diagrams
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Diagrams
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../diagrams/class_diagram.png" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Class Diagram
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../diagrams/sequence_diagram.png" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sequence Diagram
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#version-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version: 2.0
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-general-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. General Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-message-types-and-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Message Types and Fields
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Message Types and Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-connection-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. Connection Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1. Connection Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-server-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client → Server: connect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-client-connected" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server → Client: connected
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-gameplay-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Gameplay Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2. Gameplay Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-server-move" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client → Server: move
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-all-clients-update_position" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server → All Clients: update_position
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-shooting-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. Shooting Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3. Shooting Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-server-shoot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client → Server: shoot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-chat-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4. Chat Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4. Chat Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-server-chat_message" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client → Server: chat_message
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-power-up-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5. Power-Up Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5. Power-Up Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-all-clients-power_up" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server → All Clients: power_up
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-error-handling-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6. Error Handling Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6. Error Handling Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-client-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server → Client: error
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-game-state-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Game State Synchronization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-error-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Error Codes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-example-communication-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Example Communication Sequence
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-packet-structure-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Packet Structure Overview
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="r-type-multiplayer-protocol-specification">R-Type Multiplayer Protocol Specification</h1>
+<h2 id="version-20">Version: 2.0</h2>
+<p><strong>Last Updated:</strong> 2024-12-04  </p>
+<hr />
+<h2 id="1-general-information">1. General Information</h2>
+<ul>
+<li><strong>Protocol:</strong> TCP  </li>
+<li><strong>Port:</strong> 4242  </li>
+<li><strong>Message Format:</strong> Binary  </li>
+<li><strong>Encoding:</strong> UTF-8  </li>
+<li><strong>Packet Header</strong>:  </li>
+<li><strong>Type:</strong> 1 byte (indicates message type)  </li>
+<li><strong>Payload Size:</strong> 4 bytes (indicates the size of the payload)  </li>
+</ul>
+<hr />
+<h2 id="2-message-types-and-fields">2. Message Types and Fields</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Type</strong></th>
+<th><strong>Message</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x01</code></td>
+<td><code>connect</code></td>
+<td>Client requests connection to the server</td>
+</tr>
+<tr>
+<td><code>0x02</code></td>
+<td><code>connected</code></td>
+<td>Server confirms connection and provides initial state</td>
+</tr>
+<tr>
+<td><code>0x03</code></td>
+<td><code>disconnect</code></td>
+<td>Client requests disconnection</td>
+</tr>
+<tr>
+<td><code>0x04</code></td>
+<td><code>player_disconnected</code></td>
+<td>Server notifies clients of a player’s disconnection</td>
+</tr>
+<tr>
+<td><code>0x05</code></td>
+<td><code>move</code></td>
+<td>Client sends updated position</td>
+</tr>
+<tr>
+<td><code>0x06</code></td>
+<td><code>update_position</code></td>
+<td>Server broadcasts player position updates</td>
+</tr>
+<tr>
+<td><code>0x07</code></td>
+<td><code>shoot</code></td>
+<td>Client sends a shooting action</td>
+</tr>
+<tr>
+<td><code>0x08</code></td>
+<td><code>bullet</code></td>
+<td>Server broadcasts bullet position and state</td>
+</tr>
+<tr>
+<td><code>0x09</code></td>
+<td><code>spawn_enemy</code></td>
+<td>Server broadcasts enemy spawn</td>
+</tr>
+<tr>
+<td><code>0x0A</code></td>
+<td><code>update_enemy</code></td>
+<td>Server broadcasts enemy movement</td>
+</tr>
+<tr>
+<td><code>0x0B</code></td>
+<td><code>update_score</code></td>
+<td>Server updates players' scores</td>
+</tr>
+<tr>
+<td><code>0x0C</code></td>
+<td><code>chat_message</code></td>
+<td>Client sends a chat message</td>
+</tr>
+<tr>
+<td><code>0x0D</code></td>
+<td><code>broadcast_chat</code></td>
+<td>Server broadcasts a chat message</td>
+</tr>
+<tr>
+<td><code>0x0E</code></td>
+<td><code>power_up</code></td>
+<td>Server broadcasts a power-up spawn</td>
+</tr>
+<tr>
+<td><code>0x0F</code></td>
+<td><code>collect_power_up</code></td>
+<td>Client collects a power-up</td>
+</tr>
+<tr>
+<td><code>0x10</code></td>
+<td><code>sync_state</code></td>
+<td>Server synchronizes game state</td>
+</tr>
+<tr>
+<td><code>0x11</code></td>
+<td><code>error</code></td>
+<td>Server sends an error message</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="21-connection-messages">2.1. Connection Messages</h3>
+<h4 id="client-server-connect"><strong>Client → Server: <code>connect</code></strong></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Field</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>username</code></td>
+<td>STRING</td>
+<td>Player's username (16 bytes max)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Binary Format</strong>:<br />
+| <strong>Byte Offset</strong> | <strong>Size (bytes)</strong> | <strong>Field</strong>  | <strong>Description</strong>             |
+|-----------------|------------------|------------|-----------------------------|
+| 0               | 1                | <code>type</code>     | Message type (<code>0x01</code>)       |
+| 1               | 4                | <code>size</code>     | Payload size (e.g., 16)     |
+| 5               | 16               | <code>username</code> | Player's username           |</p>
+<hr />
+<h4 id="server-client-connected"><strong>Server → Client: <code>connected</code></strong></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Field</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>playerId</code></td>
+<td>INTEGER</td>
+<td>Unique player ID assigned by the server</td>
+</tr>
+<tr>
+<td><code>gameState</code></td>
+<td>OBJECT</td>
+<td>Current game state</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="22-gameplay-messages">2.2. Gameplay Messages</h3>
+<h4 id="client-server-move"><strong>Client → Server: <code>move</code></strong></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Field</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>playerId</code></td>
+<td>INTEGER</td>
+<td>Player's ID</td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>OBJECT</td>
+<td>Player's updated coordinates</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="server-all-clients-update_position"><strong>Server → All Clients: <code>update_position</code></strong></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Field</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>playerId</code></td>
+<td>INTEGER</td>
+<td>Player's ID</td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>OBJECT</td>
+<td>Updated coordinates</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="23-shooting-messages">2.3. Shooting Messages</h3>
+<h4 id="client-server-shoot"><strong>Client → Server: <code>shoot</code></strong></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Field</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>playerId</code></td>
+<td>INTEGER</td>
+<td>Player's ID</td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>OBJECT</td>
+<td>Coordinates of the shot</td>
+</tr>
+<tr>
+<td><code>direction</code></td>
+<td>STRING</td>
+<td>Direction of the shot</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="24-chat-messages">2.4. Chat Messages</h3>
+<h4 id="client-server-chat_message"><strong>Client → Server: <code>chat_message</code></strong></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Field</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>username</code></td>
+<td>STRING</td>
+<td>Player's username</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>STRING</td>
+<td>Chat message content</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Binary Format</strong>:<br />
+| <strong>Byte Offset</strong> | <strong>Size (bytes)</strong> | <strong>Field</strong>  | <strong>Description</strong>             |
+|-----------------|------------------|------------|-----------------------------|
+| 0               | 1                | <code>type</code>     | Message type (<code>0x0C</code>)       |
+| 1               | 4                | <code>size</code>     | Payload size                |
+| 5               | 16               | <code>username</code> | Player's username           |
+| 21              | N                | <code>message</code>  | Chat message content        |</p>
+<hr />
+<h3 id="25-power-up-messages">2.5. Power-Up Messages</h3>
+<h4 id="server-all-clients-power_up"><strong>Server → All Clients: <code>power_up</code></strong></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Field</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>powerUpId</code></td>
+<td>INTEGER</td>
+<td>Unique power-up ID</td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>OBJECT</td>
+<td>Spawn coordinates</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>STRING</td>
+<td>Type of power-up</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="26-error-handling-messages">2.6. Error Handling Messages</h3>
+<h4 id="server-client-error"><strong>Server → Client: <code>error</code></strong></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Field</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errorCode</code></td>
+<td>INTEGER</td>
+<td>Error code</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>STRING</td>
+<td>Error message</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-game-state-synchronization">3. Game State Synchronization</h2>
+<p>The server periodically sends a <strong><code>sync_state</code></strong> message to all connected clients to ensure they are up-to-date with the game world.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Field</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>players</code></td>
+<td>ARRAY</td>
+<td>List of all players and their states</td>
+</tr>
+<tr>
+<td><code>enemies</code></td>
+<td>ARRAY</td>
+<td>List of all enemies and their states</td>
+</tr>
+<tr>
+<td><code>powerUps</code></td>
+<td>ARRAY</td>
+<td>List of active power-ups</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-error-codes">4. Error Codes</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Error Code</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1001</code></td>
+<td>Invalid message format</td>
+</tr>
+<tr>
+<td><code>1002</code></td>
+<td>Unknown message type</td>
+</tr>
+<tr>
+<td><code>1003</code></td>
+<td>Player not found</td>
+</tr>
+<tr>
+<td><code>1004</code></td>
+<td>Action not permitted</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-example-communication-sequence">5. Example Communication Sequence</h2>
+<ol>
+<li><strong>Client connects</strong>:  </li>
+<li>Sends <code>connect</code> message with username.  </li>
+<li>
+<p>Server responds with <code>connected</code> and player ID.</p>
+</li>
+<li>
+<p><strong>Client moves</strong>:  </p>
+</li>
+<li>Sends <code>move</code> message with new position.  </li>
+<li>
+<p>Server broadcasts <code>update_position</code>.</p>
+</li>
+<li>
+<p><strong>Client shoots</strong>:  </p>
+</li>
+<li>Sends <code>shoot</code> message with position and direction.  </li>
+<li>
+<p>Server broadcasts <code>bullet</code>.</p>
+</li>
+<li>
+<p><strong>Player sends chat</strong>:  </p>
+</li>
+<li>Sends <code>chat_message</code>.  </li>
+<li>
+<p>Server broadcasts <code>broadcast_chat</code>.</p>
+</li>
+<li>
+<p><strong>Game synchronization</strong>:  </p>
+</li>
+<li>Server periodically sends <code>sync_state</code> to all clients.</li>
+</ol>
+<hr />
+<h2 id="6-packet-structure-overview">6. Packet Structure Overview</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Header (Bytes)</strong></th>
+<th><strong>Field</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>type</code></td>
+<td>Message type</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>size</code></td>
+<td>Payload size</td>
+</tr>
+<tr>
+<td>N</td>
+<td><code>payload</code></td>
+<td>Actual message data</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>End of Protocol</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,7 +1,6 @@
 site_name: R-Type Documentation
 site_url: https://rtype_doc.com
 docs_dir: docs
-site_dir: site
 theme:
   name: material
   palette:
@@ -17,7 +16,6 @@ nav:
       - Binary Protocol: protocol/binary-protocol.md
   - Developer Documentation:
       - ECS:
-          - Overview: dev/ECS/Overview.md
           - API Reference: dev/ECS/APIReference.md
           - Core Components: dev/ECS/CoreComponents.md
           - Event Management: dev/ECS/EventManagement.md
