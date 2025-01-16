@@ -1,0 +1,67 @@
+site_name: R-Type Documentation
+site_url: https://rtype_doc.com
+docs_dir: docs
+site_dir: site
+theme:
+  name: material
+  palette:
+    primary: indigo
+    accent: light-blue
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - ECS Overview: ECS.md
+  - RType Overview: RType.md
+  - Protocol:
+      - Overview: protocol/protocol.md
+      - Binary Protocol: protocol/binary-protocol.md
+  - Developer Documentation:
+      - ECS:
+          - Overview: dev/ECS/Overview.md
+          - API Reference: dev/ECS/APIReference.md
+          - Core Components: dev/ECS/CoreComponents.md
+          - Event Management: dev/ECS/EventManagement.md
+          - Examples: dev/ECS/Examples.md
+          - Schemas and Diagrams: dev/ECS/SchemasAndDiagrams.md
+          - System Manager: dev/ECS/SystemManager.md
+          - Systems: dev/ECS/Systems.md
+      - Network:
+          - Client: dev/Network/Client.md
+          - Enemy: dev/Network/Enemy.md
+          - Entity: dev/Network/Entity.md
+          - Exception: dev/Network/Exception.md
+          - IServer: dev/Network/IServer.md
+          - Network Overview: dev/Network/Network.md
+          - Player: dev/Network/Player.md
+          - Projectile: dev/Network/Projectile.md
+          - Server: dev/Network/Server.md
+      - RType:
+          - Introduction: dev/RType/Introduction.md
+          - Collision System: dev/RType/collision_system.md
+          - Enemy Shooting System: dev/RType/enemy_shooting_system.md
+          - Enemy Spawn System: dev/RType/enemy_spawn_system.md
+          - Game Common: dev/RType/game_common.md
+          - Game Network: dev/RType/game_network.md
+          - Game Setup: dev/RType/game_setup.md
+          - Health System: dev/RType/health_system.md
+          - Input System: dev/RType/input_system.md
+          - Projectile Types: dev/RType/projectile_types.md
+  - User Documentation:
+      - Introduction: user/Introduction.md
+      - Installation: user/Installation.md
+      - Usage: user/Usage.md
+      - Troubleshooting: user/Troubleshooting.md
+  - Diagrams:
+      - Class Diagram: diagrams/class_diagram.png
+      - Sequence Diagram: diagrams/sequence_diagram.png
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed
+# extra_css:
+#   - assets/styles.css
+# extra_javascript:
+#   - assets/scripts.js
